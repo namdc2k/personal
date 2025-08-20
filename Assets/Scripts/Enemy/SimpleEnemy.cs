@@ -10,6 +10,7 @@ namespace Enemy{
         private SpriteRenderer _sprite;
         private EnemySpawner _spawner;
         private CapsuleCollider2D _collider;
+        private Animator _animator;
         public int Max => max;
         public int Current { get; private set; }
         public event Action<int, int> OnHealthChanged;
@@ -20,6 +21,7 @@ namespace Enemy{
             _rigid = GetComponent<Rigidbody2D>();
             _sprite = GetComponent<SpriteRenderer>();
             _collider = GetComponent<CapsuleCollider2D>();
+            _animator = GetComponent<Animator>();
         }
 
         public float Speed { get; set; }
@@ -36,9 +38,11 @@ namespace Enemy{
             _collider.enabled = true;
         }
 
-        public void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
+        public void SetPositionAndRotation(Vector3 position, Quaternion rotation, RuntimeAnimatorController animator) {
             transform.position = position;
             transform.rotation = rotation;
+            if (_animator == null) _animator.GetComponent<Animator>();
+            _animator.runtimeAnimatorController = animator;
         }
 
         void FixedUpdate() {

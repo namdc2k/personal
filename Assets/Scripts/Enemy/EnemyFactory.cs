@@ -6,6 +6,7 @@ namespace Enemy{
         public float speed;
         public float damage;
         public int health;
+        public RuntimeAnimatorController animator;
         public abstract IEnemy Create(Transform parent);
     }
 }

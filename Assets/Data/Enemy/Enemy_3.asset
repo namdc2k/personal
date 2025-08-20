@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dd06165c1714472bfd13179af20d77c, type: 3}
-  m_Name: Enemy_0
+  m_Name: Enemy_3
   m_EditorClassIdentifier: 
   speed: 2
   damage: 5
   health: 50
-  animator: {fileID: 9100000, guid: f2855d618fc8d9c499189d3f39b9cbbc, type: 2}
+  animator: {fileID: 22100000, guid: 8d1d920724ffb8a409ce0e458dc4b7a9, type: 2}
   zombiePrefab: {fileID: 6295971188244908197, guid: aa9f484f23dc8c447b8adecb80cd385a, type: 3}

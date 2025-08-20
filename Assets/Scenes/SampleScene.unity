@@ -585,7 +585,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1816bbafd2374869a4d8c88b98c0cda2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  factory: {fileID: 11400000, guid: 3b896991bb8efea4189df214f4033eaa, type: 2}
+  factorys:
+  - {fileID: 11400000, guid: 3b896991bb8efea4189df214f4033eaa, type: 2}
+  - {fileID: 11400000, guid: 0b2891000f3de9a4294dc741d5549711, type: 2}
+  - {fileID: 11400000, guid: 747e403ad9c5c294b80b4a86a7a2d068, type: 2}
+  - {fileID: 11400000, guid: a43616d67943a554bac394aafcd52818, type: 2}
+  - {fileID: 11400000, guid: 747f616c915571f4eb63d651de61814c, type: 2}
   radius: 10
 --- !u!1 &592960171
 GameObject:
