@@ -11,6 +11,8 @@ namespace Player{
         private SpriteRenderer _sprite;
         private Animator _animator;
 
+        public Vector2 InputVector => _inputVec;
+
         private void Awake() {
             _rb = GetComponent<Rigidbody2D>();
             _sprite = GetComponent<SpriteRenderer>();
