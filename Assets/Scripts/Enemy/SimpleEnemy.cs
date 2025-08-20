@@ -5,24 +5,40 @@ using UnityEngine;
 namespace Enemy{
     public class SimpleEnemy : MonoBehaviour, IEnemy, IHealth, IMovable{
         [SerializeField] private int max = 50;
-        [SerializeField] private float speed = 2f;
         private Rigidbody2D _rigid;
         private Transform _player;
         private SpriteRenderer _sprite;
-
+        private EnemySpawner _spawner;
+        private CapsuleCollider2D _collider;
         public int Max => max;
         public int Current { get; private set; }
-        public event System.Action<int, int> OnHealthChanged;
+        public event Action<int, int> OnHealthChanged;
 
         void Awake() {
             Current = Max;
             _player = GameObject.FindWithTag("Player")?.transform;
             _rigid = GetComponent<Rigidbody2D>();
             _sprite = GetComponent<SpriteRenderer>();
+            _collider = GetComponent<CapsuleCollider2D>();
         }
 
-        public void Spawned() {
-            Debug.Log($"{name} spawned");
+        public float Speed { get; set; }
+        public float Damage { get; set; }
+        public int Health { get; set; }
+
+        public void Spawned(EnemySpawner spawner, int health, float damage, float speed) {
+            gameObject.SetActive(true);
+            Health = health;
+            Damage = damage;
+            Speed = speed;
+            _spawner = spawner;
+            max = health;
+            _collider.enabled = true;
+        }
+
+        public void SetPositionAndRotation(Vector3 position, Quaternion rotation) {
+            transform.position = position;
+            transform.rotation = rotation;
         }
 
         void FixedUpdate() {
@@ -39,11 +55,20 @@ namespace Enemy{
         public void TakeDamage(int amount) {
             Current = Mathf.Max(0, Current - amount);
             OnHealthChanged?.Invoke(Current, Max);
-            if (Current == 0) Destroy(gameObject);
+            if (Current == 0) {
+                _spawner.ReturnPool(this);
+            }
         }
 
         public void Move(Vector2 dir, float deltaTime) {
-            _rigid.MovePosition(_rigid.position + dir * speed * deltaTime);
+            _rigid.MovePosition(_rigid.position + dir * Speed * deltaTime);
+        }
+
+        private void OnCollisionEnter2D(Collision2D other) {
+            if (other.gameObject.CompareTag("Player")) {
+                TakeDamage(100);
+                _collider.enabled = false;
+            }
         }
     }
 }

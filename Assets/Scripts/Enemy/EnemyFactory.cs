@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Enemy{
     public abstract class EnemyFactory : ScriptableObject{
-        public abstract IEnemy Create(Vector3 position, Quaternion rotation);
+        public float speed;
+        public float damage;
+        public int health;
+        public abstract IEnemy Create(Transform parent);
     }
 }
